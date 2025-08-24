@@ -1,26 +1,41 @@
 {
   "messageVersion": "1.0",
+  "agent": {
+    "name": "TestAgent",
+    "version": "DRAFT",
+    "id": "TSTALIASID",
+    "alias": "TestAgentAlias"
+  },
+  "inputText": "Send an email with the message body about account balance update",
+  "sessionId": "session12345",
   "actionGroup": "SendEmail",
   "apiPath": "/sendEmail",
   "httpMethod": "POST",
+  "parameters": [
+    {
+      "name": "subject",
+      "type": "string",
+      "value": "Account Balance Update"
+    },
+    {
+      "name": "messageBody",
+      "type": "string", 
+      "value": "Your account balance has been updated. Current balance: $3,234.56. Thank you for banking with us!"
+    }
+  ],
   "requestBody": {
     "content": {
       "application/json": {
         "properties": [
           {
-            "name": "recipientEmail",
-            "type": "string",
-            "value": "aihandsandminds@gmail.com"
-          },
-          {
             "name": "subject",
-            "type": "string", 
-            "value": "Banking Demo Test"
+            "type": "string",
+            "value": "Account Balance Update"
           },
           {
             "name": "messageBody",
             "type": "string",
-            "value": "This is a test email from the banking AI system!"
+            "value": "Your account balance has been updated. Current balance: $3,234.56. Thank you for banking with us!"
           }
         ]
       }
