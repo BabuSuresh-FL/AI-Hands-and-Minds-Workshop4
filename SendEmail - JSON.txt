@@ -1,0 +1,29 @@
+{
+  "messageVersion": "1.0",
+  "actionGroup": "SendEmail",
+  "apiPath": "/sendEmail",
+  "httpMethod": "POST",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "properties": [
+          {
+            "name": "recipientEmail",
+            "type": "string",
+            "value": "aihandsandminds@gmail.com"
+          },
+          {
+            "name": "subject",
+            "type": "string", 
+            "value": "Banking Demo Test"
+          },
+          {
+            "name": "messageBody",
+            "type": "string",
+            "value": "This is a test email from the banking AI system!"
+          }
+        ]
+      }
+    }
+  }
+}

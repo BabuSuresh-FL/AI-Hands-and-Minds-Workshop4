@@ -1,0 +1,59 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Get User Details by Id API",
+    "version": "1.0.0",
+    "description": "API toGet User Details by Id"
+  },
+  "paths": {
+    "/getUserById": {
+      "post": {
+        "summary": "Get User Details by Id",
+        "description": "Get User Details by Id", 
+        "operationId": "getUserById",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "User ID to get User Details for"
+                  },
+                  "limit": {
+                    "type": "integer", 
+                    "description": "Number of rows to return",
+                    "default": 10
+                  }
+                },
+                "required": ["userId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "body": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

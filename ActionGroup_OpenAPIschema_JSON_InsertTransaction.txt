@@ -1,0 +1,63 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Insert Transaction API",
+    "version": "1.0.0",
+    "description": "API to insert new transactions"
+  },
+  "paths": {
+    "/insert-transaction": {
+      "post": {
+        "summary": "Insert new transaction",
+        "description": "Creates a new transaction record",
+        "operationId": "insertTransaction",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accountId": {
+                    "type": "integer",
+                    "description": "Account ID for the transaction"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "description": "Transaction amount (positive for credit, negative for debit)"
+                  },
+                  "transactionType": {
+                    "type": "string",
+                    "description": "Type of transaction",
+                    "default": "Debit"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Transaction description"
+                  },
+                  "relatedParty": {
+                    "type": "string",
+                    "description": "Related party (merchant, employer, etc.)"
+                  }
+                },
+                "required": ["accountId", "amount"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "messageVersion": "1.0",
+  "actionGroup": "GetAccountBalance",
+  "apiPath": "/accountBalance",
+  "httpMethod": "POST",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "properties": [
+          {
+            "name": "accountId",
+            "type": "integer",
+            "value": "4"
+          }
+        ]
+      }
+    }
+  },
+  "sessionAttributes": {},
+  "promptSessionAttributes": {}
+}

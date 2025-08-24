@@ -1,0 +1,59 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Transfer Funds API",
+    "version": "1.0.0",
+    "description": "API to transfer funds between accounts"
+  },
+  "paths": {
+    "/transfer-funds": {
+      "post": {
+        "summary": "Transfer funds between accounts",
+        "description": "Transfers money from one account to another",
+        "operationId": "transferFunds",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fromAccountId": {
+                    "type": "integer",
+                    "description": "Source account ID"
+                  },
+                  "toAccountId": {
+                    "type": "integer", 
+                    "description": "Destination account ID"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "description": "Amount to transfer (must be positive)"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Transfer description",
+                    "default": "Account transfer"
+                  }
+                },
+                "required": ["fromAccountId", "toAccountId", "amount"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

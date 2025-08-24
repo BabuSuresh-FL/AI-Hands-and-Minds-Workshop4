@@ -1,0 +1,59 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Get Recent Transactions API",
+    "version": "1.0.0",
+    "description": "API to retrieve recent transactions"
+  },
+  "paths": {
+    "/transactions": {
+      "post": {
+        "summary": "Get recent transactions",
+        "description": "Retrieves recent transactions for an account", 
+        "operationId": "getRecentTransactions",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accountId": {
+                    "type": "integer",
+                    "description": "Account ID to get transactions for"
+                  },
+                  "limit": {
+                    "type": "integer", 
+                    "description": "Number of transactions to return",
+                    "default": 10
+                  }
+                },
+                "required": ["accountId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "body": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

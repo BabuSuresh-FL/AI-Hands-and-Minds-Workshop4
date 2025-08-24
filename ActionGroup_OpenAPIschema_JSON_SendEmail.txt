@@ -1,0 +1,106 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Send Email API",
+    "version": "1.0.0",
+    "description": "API to send email notifications for banking operations"
+  },
+  "paths": {
+    "/sendEmail": {
+      "post": {
+        "summary": "Send Email",
+        "description": "Send email notifications to customers with banking information, confirmations, or alerts",
+        "operationId": "sendEmail",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "recipientEmail": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "Email address of the recipient"
+                  },
+                  "subject": {
+                    "type": "string",
+                    "description": "Email subject line",
+                    "default": "Banking Notification"
+                  },
+                  "messageBody": {
+                    "type": "string",
+                    "description": "Email message content/body"
+                  }
+                },
+                "required": ["recipientEmail", "messageBody"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "Whether email was sent successfully"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Success message"
+                    },
+                    "messageId": {
+                      "type": "string",
+                      "description": "Unique identifier for the sent email"
+                    },
+                    "recipientEmail": {
+                      "type": "string",
+                      "description": "Email address where the message was sent"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid email or missing parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error - email sending failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

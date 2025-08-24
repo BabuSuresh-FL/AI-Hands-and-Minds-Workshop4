@@ -1,0 +1,21 @@
+{
+  "messageVersion": "1.0",
+  "actionGroup": "GetByUserId",
+  "apiPath": "/getByUserId",
+  "httpMethod": "POST",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "properties": [
+          {
+            "name": "userId",
+            "type": "integer",
+            "value": "7"
+          }
+        ]
+      }
+    }
+  },
+  "sessionAttributes": {},
+  "promptSessionAttributes": {}
+}

@@ -1,0 +1,148 @@
+/*
+Please make a note of the below 3 tables, since our workshop with work with these 3 tables:
+
+1. **Users**
+   - Users have multiple financial accounts (checking, savings, credit, etc.).  
+   - Need balances to support transfers, payments, and paycheck clears.  
+
+2. **Accounts**
+   - Users have multiple financial accounts (checking, savings, credit, etc.).  
+   - Need balances to support transfers, payments, and paycheck clears.  
+
+3. **Transactions**
+   - Record of deposits, withdrawals, payments, transfers.  
+   - Ability to query last N transactions.  
+
+
+CREATE TABLE public.users (
+    userid SERIAL PRIMARY KEY,
+    fullname VARCHAR(100) NOT NULL,
+    email VARCHAR(150),
+    phone VARCHAR(20),
+    createdat TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE public.accounts (
+    accountid SERIAL PRIMARY KEY,
+    userid INT NOT NULL REFERENCES public.users(userid),
+    accounttype VARCHAR(50) NOT NULL,   -- Checking, Savings, Credit, etc.
+    currency VARCHAR(10) NOT NULL DEFAULT 'USD',
+    balance NUMERIC(18,2) NOT NULL DEFAULT 0,
+    createdat TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE public.transactions (
+    transactionid BIGSERIAL PRIMARY KEY,
+    accountid INT NOT NULL REFERENCES public.accounts(accountid),
+    amount NUMERIC(18,2) NOT NULL,
+    transactiontype VARCHAR(50) NOT NULL,  -- Debit, Credit, Transfer, Payment
+    description VARCHAR(255),
+    relatedparty VARCHAR(100),             -- e.g., Merchant, Employer
+    createdat TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+=========================
+
+-- Insert sample data
+INSERT INTO public.users (fullname, email, phone)
+VALUES
+('Val Marsden', 'val.marsden@bankofmars.mrs', '1001-MRS'),
+('Tara Redrock', 'tara.redrock@bankofmars.mrs', '1002-MRS'),
+('Leo Bluestone', 'leo@terrafinance.earth', '2001-EAR'),
+('Nova Solis', 'nova.solis@lunaaccount.lun', '3001-LUN'),
+('Ruby Sunwalker', 'ruby.sunwalker@bankofvenus.vns', '4002-VNS'),
+('Jade Mercury', 'jade.mercury@bankofmercury.mrc', '5003-MRC'),
+('Orion Zephyr', 'orion.zephyr@bankofmars.mrs', '1003-MRS'),
+('Sandy Saturn', 'sandy.saturn@ringedbank.sat', '6001-SAT'),
+('Andromeda Star', 'andromeda.star@nebula.neb', '7001-NEB'),
+('Hal Terra', 'hal.terra@earthbank.earth', '2002-EAR'),
+('Mira Titan', 'mira.titan@moonco.tit', '8001-TIT'),
+('Cosmo Ray', 'cosmo.ray@spacefarer.mrs', '1020-MRS'),
+('Vega Orb', 'vega.orb@orbitbank.vns', '4001-VNS'),
+('Marsella Red', 'marsella.red@bankofmars.mrs', '1004-MRS'),
+('Phoebe Luna', 'phoebe.luna@bankofmars.mrs', '1005-MRS'),
+('Stella Ceres', 'stella.ceres@asteroidtrust.cer', '9001-CER'),
+('Zen Neptunian', 'zen.neptunian@deepblue.nep', '1001-NEP'),
+('Gaia Nova', 'gaia.nova@earthbank.earth', '2003-EAR'),
+('Atlas Vulcan', 'atlas.vulcan@forgebank.vlc', '1001-VLC'),
+('Cassi Sol', 'cassi.sol@sunline.sol', '5001-SOL');
+
+select * from public.users;
+
+-- Insert data
+INSERT INTO public.accounts (userid, accounttype, currency, balance)
+VALUES
+(1, 'Checking', 'MCR', 12000.50),
+(1, 'Savings', 'MCR', 34040.15),
+(2, 'Checking', 'MCR', 8950.00),
+(2, 'Savings', 'MCR', 22300.20),
+(3, 'Checking', 'ECR', 5330.25),
+(3, 'Credit', 'ECR', -1200.00),
+(4, 'Checking', 'LCR', 7200.00),
+(4, 'Savings', 'LCR', 15700.00),
+(5, 'Checking', 'VCR', 3920.35),
+(5, 'Savings', 'VCR', 8120.00),
+(6, 'Checking', 'MCR', 22030.00),
+(6, 'Credit', 'MCR', -350.00),
+(7, 'Checking', 'MCR', 17800.00),
+(7, 'Savings', 'MCR', 5150.00),
+(8, 'Checking', 'SCR', 4450.50),
+(8, 'Savings', 'SCR', 10260.75),
+(9, 'Checking', 'NCR', 10250.00),
+(9, 'Savings', 'NCR', 14400.00),
+(10, 'Checking', 'ECR', 6970.75),
+(10, 'Credit', 'ECR', -520.00),
+(11, 'Checking', 'TCR', 2100.00),
+(11, 'Credit', 'TCR', -40.00),
+(12, 'Checking', 'MCR', 7118.85),
+(12, 'Savings', 'MCR', 14100.66),
+(13, 'Checking', 'VCR', 8490.49),
+(13, 'Savings', 'VCR', 9750.00),
+(14, 'Checking', 'MCR', 29500.00),
+(14, 'Savings', 'MCR', 6800.00),
+(15, 'Checking', 'MCR', 5221.21),
+(15, 'Savings', 'MCR', 3102.23),
+(16, 'Checking', 'CCR', 3919.00),
+(16, 'Savings', 'CCR', 12500.00),
+(17, 'Checking', 'NCR', 21250.23),
+(17, 'Savings', 'NCR', 33150.17),
+(18, 'Checking', 'ECR', 2550.75),
+(18, 'Savings', 'ECR', 7000.00),
+(19, 'Checking', 'VCR', 9400.41),
+(19, 'Savings', 'VCR', 500.00),
+(20, 'Checking', 'SOL', 1200.45),
+(20, 'Savings', 'SOL', 3200.60);
+
+select * from public.accounts;
+
+-- Insert data
+INSERT INTO public.transactions (accountid, amount, transactiontype, description, relatedparty, createdat)
+VALUES
+(1, 5000.00, 'Credit', 'Paycheck deposit', 'Mars Mining Corp', '2025-08-12'),
+(1, -52.00, 'Debit', 'Pizza dinner', 'Cosmos Pizza', '2025-08-13'),
+(2, -1100.00, 'Debit', 'Monthly apartment rent', 'Red Dune Rentals', '2025-08-01'),
+(3, -149.99, 'Debit', 'Shopping order', 'Venus Ventures', '2025-08-10'),
+(4, 3200.00, 'Credit', 'Freelance payment', 'Mercury Messenger', '2025-08-11'),
+(5, -77.50, 'Debit', 'Groceries', 'Galactic Grocers', '2025-08-09'),
+(6, -105.30, 'Debit', 'Satellite Internet', 'Neptune Net', '2025-08-07'),
+(7, 175.00, 'Credit', 'Prize money', 'Galactic Games', '2025-08-08'),
+(8, -18.00, 'Debit', 'Gym membership', 'Saturn Gym', '2025-08-02'),
+(9, -599.99, 'Debit', 'Tablet computer', 'Asteroid Apparel', '2025-08-03'),
+(10, -59.99, 'Debit', 'Video streaming', 'Solarstream', '2025-08-04'),
+(11, -20.00, 'Debit', 'Metro fare', 'Mars Metro', '2025-08-05'),
+(12, 4000.00, 'Credit', 'Paycheck', 'Earth Bank', '2025-08-03'),
+(13, -1000.00, 'Debit', 'Auto Loan Payment', 'Cars-Of-Mars', '2025-08-02'),
+(14, -13.50, 'Debit', 'Coffee', 'Starlite Café', '2025-08-06'),
+(15, -24.99, 'Debit', 'Music subscription', 'Terra Tunes', '2025-08-14'),
+(16, -27.50, 'Debit', 'Airport Shuttle', 'Lunar Lift', '2025-08-04'),
+(17, 2250.00, 'Credit', 'Research stipend', 'Galactic Bank', '2025-08-03'),
+(18, -89.90, 'Debit', 'Software renewal', 'Sun Systems', '2025-08-08'),
+(19, -47.85, 'Debit', 'Meal delivery', 'Mercury Messenger', '2025-08-07');
+
+
+select * from public.transactions;
+
+=========================
+
