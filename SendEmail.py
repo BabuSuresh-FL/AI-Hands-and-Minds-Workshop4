@@ -13,7 +13,6 @@ def lambda_handler(event, context):
         ses_client = boto3.client('ses', region_name=os.environ.get('MY_AWS_REGION', 'us-east-1'))
         
         # Default values
-        recipient_email = None
         subject = "Banking Notification"
         message_body = "This is a test email from your banking system."
         
@@ -21,21 +20,20 @@ def lambda_handler(event, context):
         if 'requestBody' in event and 'content' in event['requestBody']:
             properties = event['requestBody']['content']['application/json']['properties']
             for prop in properties:
-                if prop['name'] == 'recipientEmail':
-                    recipient_email = prop['value']
-                elif prop['name'] == 'subject':
+                if prop['name'] == 'subject':
                     subject = prop['value']
                 elif prop['name'] == 'messageBody':
                     message_body = prop['value']
-        
-        # Validate required parameters
-        if not recipient_email:
-            raise ValueError("Recipient email address must be provided")
         
         # Get sender email from environment variable
         sender_email = os.environ.get('SENDER_EMAIL')
         if not sender_email:
             raise ValueError("SENDER_EMAIL environment variable must be set")
+        
+        # Get recipient email from environment variable (predefined)
+        recipient_email = os.environ.get('RECIPIENT_EMAIL')
+        if not recipient_email:
+            raise ValueError("RECIPIENT_EMAIL environment variable must be set")
         
         print(f"Sending email from {sender_email} to {recipient_email}")
         print(f"Subject: {subject}")
