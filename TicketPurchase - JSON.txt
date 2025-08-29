@@ -1,0 +1,39 @@
+{
+  "messageVersion": "1.0",
+  "actionGroup": "TicketPurchase",
+  "apiPath": "/purchase-ticket",
+  "httpMethod": "POST",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "properties": [
+          {
+            "name": "user_desired_section_number",
+            "type": "integer",
+            "value": "1"
+          },
+          {
+            "name": "user_desired_number_of_seats",
+            "type": "integer", 
+            "value": "2"
+          },
+          {
+            "name": "person_name",
+            "type": "string",
+            "value": "John Smith"
+          },
+          {
+            "name": "person_phone",
+            "type": "string",
+            "value": "+1-555-123-4567"
+          },
+          {
+            "name": "person_email",
+            "type": "string",
+            "value": "john.smith@email.com"
+          }
+        ]
+      }
+    }
+  }
+}
