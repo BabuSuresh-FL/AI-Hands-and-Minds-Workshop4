@@ -1,0 +1,29 @@
+{
+  "messageVersion": "1.0",
+  "agent": {
+    "name": "TicketBookingAgent",
+    "id": "ABCDEF123456",
+    "alias": "prod",
+    "version": "1.0"
+  },
+  "inputText": "Show me available seats",
+  "sessionId": "session-123456789",
+  "actionGroup": "GetAvailableSeats",
+  "apiPath": "/available-seats",
+  "httpMethod": "GET",
+  "parameters": [],
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "properties": []
+      }
+    }
+  },
+  "sessionAttributes": {
+    "customerId": "cust-789",
+    "sessionStartTime": "2024-01-15T10:30:00Z"
+  },
+  "promptSessionAttributes": {
+    "conversationHistory": "User asked about ticket availability"
+  }
+}
