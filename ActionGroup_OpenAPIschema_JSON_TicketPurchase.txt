@@ -1,0 +1,92 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Ticket Purchase API",
+    "version": "1.0.0",
+    "description": "API to purchase tickets from available sections"
+  },
+  "paths": {
+    "/purchase-ticket": {
+      "post": {
+        "summary": "Purchase tickets",
+        "description": "Purchase tickets from a specific section if seats are available",
+        "operationId": "purchaseTicket",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_desired_section_number": {
+                    "type": "integer",
+                    "description": "The section number where user wants to purchase tickets"
+                  },
+                  "user_desired_number_of_seats": {
+                    "type": "integer",
+                    "description": "Number of seats the user wants to purchase",
+                    "minimum": 1
+                  },
+                  "person_name": {
+                    "type": "string",
+                    "description": "Full name of the ticket purchaser"
+                  },
+                  "person_phone": {
+                    "type": "string",
+                    "description": "Phone number of the ticket purchaser"
+                  },
+                  "person_email": {
+                    "type": "string",
+                    "description": "Email address of the ticket purchaser",
+                    "format": "email"
+                  }
+                },
+                "required": [
+                  "user_desired_section_number", 
+                  "user_desired_number_of_seats", 
+                  "person_name", 
+                  "person_phone", 
+                  "person_email"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response - either tickets purchased or section sold out",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Success message with ticket details or sold out notification"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
