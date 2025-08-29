@@ -1,0 +1,61 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Get Available Seats API",
+    "version": "1.0.0",
+    "description": "API to retrieve available seats from stadium sections"
+  },
+  "paths": {
+    "/available-seats": {
+      "get": {
+        "summary": "Get available seats",
+        "description": "Retrieves all sections with available seats, including section number, available seat count, distance from ground, and ticket price",
+        "operationId": "getAvailableSeats",
+        "responses": {
+          "200": {
+            "description": "Successful response with available seats information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "body": {
+                      "type": "string",
+                      "description": "Formatted text listing all sections with available seats",
+                      "example": "Available sections with seats (total: 4 sections):\n\n• Section A101: 15 seats available, 10 meters from ground, $75\n• Section B202: 8 seats available, 20 meters from ground, $120"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "body": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "Error retrieving available seats: Database connection failed"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
