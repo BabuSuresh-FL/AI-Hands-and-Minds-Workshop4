@@ -1,0 +1,57 @@
+CREATE TABLE ticket_availability (
+    section_number SERIAL PRIMARY KEY, 
+    total_available_seats INT,
+    how_far_is_it_from_ground VARCHAR(50) NOT NULL CHECK (
+        how_far_is_it_from_ground IN (
+            '0-50 feet from ground',
+            '51-100 feet from ground',
+            '100-150 feet from ground',
+            'Flying plane is closer to you than the ground'
+        )
+    ), 
+    ticket_price INT
+);
+
+
+INSERT INTO ticket_availability (
+  section_number, total_available_seats, how_far_is_it_from_ground, ticket_price
+) VALUES
+  (100, 100, '0-50 feet from ground', 1000), 
+  (200, 0, '51-100 feet from ground', 500),
+  (300, 0, '100-150 feet from ground', 200),
+  (400, 100, 'Flying plane is closer to you than the ground', 75);
+
+
+select * from
+ticket_availability
+
+CREATE TABLE ticket_transactions ( 
+    transaction_id       SERIAL PRIMARY KEY,
+    section_number       INT NOT NULL,
+    seat_number          SERIAL,
+    purchased_price      INT NOT NULL,
+	purchased_timestamp  TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT (CURRENT_TIMESTAMP AT TIME ZONE 'America/New_York'),
+    purchaser_name       VARCHAR(50) NOT NULL,
+    purchaser_phone      VARCHAR(20),
+    purchaser_email      VARCHAR(50),
+    CONSTRAINT fk_ticket_transactions_section FOREIGN KEY (section_number)
+        REFERENCES table_ta1(section_number)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);
+
+INSERT INTO ticket_transactions (
+  section_number, purchased_price, purchaser_name, purchaser_phone, purchaser_email
+) VALUES
+  (1, 1000, 'Jack Simith', '919-555-1234', 'smith@example.com'),
+  (4, 75, 'Pat Robert', '754-555-5678', 'pat@fly.com');
+
+
+  
+
+select * from
+ticket_transactions 
+ 
+
+
+
