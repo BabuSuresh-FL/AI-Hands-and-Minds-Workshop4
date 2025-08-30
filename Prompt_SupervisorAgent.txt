@@ -37,7 +37,7 @@ DELEGATION TRIGGERS - PRIORITY ORDER:
     • "seat", "seats", "seating", "section" 
     • "buy ticket", "purchase ticket", "book ticket"
     • "ticket purchase", "ticket booking"
-    • Requests that combine account balance checks WITH ticket purchases
+    • Requests that account balance checks WITH ticket purchases
     • "deduct" or "charge" in context of ticket purchases
 
 **Agent1_UserAccount:**
