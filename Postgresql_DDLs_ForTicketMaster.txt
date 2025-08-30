@@ -34,8 +34,8 @@ CREATE TABLE ticket_transactions (
     purchaser_name       VARCHAR(50) NOT NULL,
     purchaser_phone      VARCHAR(20),
     purchaser_email      VARCHAR(50),
-    CONSTRAINT fk_ticket_transactions_section FOREIGN KEY (section_number)
-        REFERENCES table_ta1(section_number)
+    CONSTRAINT fk_ticket_transactions_sections FOREIGN KEY (section_number)
+        REFERENCES ticket_availability(section_number)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
 );
