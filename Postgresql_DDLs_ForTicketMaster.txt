@@ -43,8 +43,8 @@ CREATE TABLE ticket_transactions (
 INSERT INTO ticket_transactions (
   section_number, purchased_price, purchaser_name, purchaser_phone, purchaser_email
 ) VALUES
-  (1, 1000, 'Jack Simith', '919-555-1234', 'smith@example.com'),
-  (4, 75, 'Pat Robert', '754-555-5678', 'pat@fly.com');
+  (100, 1000, 'Jack Simith', '919-555-1234', 'smith@example.com'),
+  (400, 75, 'Pat Robert', '754-555-5678', 'pat@fly.com');
 
 
   
