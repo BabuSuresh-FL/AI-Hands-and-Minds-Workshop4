@@ -10,12 +10,12 @@
           {
             "name": "user_desired_section_number",
             "type": "integer",
-            "value": "1"
+            "value": "200"
           },
           {
             "name": "user_desired_number_of_seats",
             "type": "integer", 
-            "value": "2"
+            "value": "1"
           },
           {
             "name": "person_name",
