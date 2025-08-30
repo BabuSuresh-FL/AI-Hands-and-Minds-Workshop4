@@ -89,11 +89,14 @@ def invoke_agent_with_retry(client, agent_id, alias_id, query, max_attempts=3):
     return None
 
 def process_streaming_response(response):
-    """Process streaming response with proper error handling"""
+    """Process streaming response with proper error handling and fixed text formatting"""
     if not response:
         return
     
     output_text = ""
+    
+    # Create a container for the response with proper styling
+    st.markdown("**🤖 AI Assistant Response:**")
     response_container = st.empty()
     
     try:
@@ -108,8 +111,10 @@ def process_streaming_response(response):
                     chunk_text = chunk_bytes.decode("utf-8")
                     output_text += chunk_text
                     
-                    # Update the display with accumulated text
-                    response_container.markdown(f"**🤖 AI Assistant Response:**\n\n{output_text}")
+                    # FIXED: Use st.text() instead of markdown to preserve formatting
+                    # This prevents markdown interpretation and displays text as-is
+                    with response_container.container():
+                        st.text(output_text)
                     
                     chunk_count += 1
                     # Update progress (arbitrary - since we don't know total chunks)
@@ -125,6 +130,10 @@ def process_streaming_response(response):
             st.warning("⚠️ No response received from the agent")
         else:
             st.success("✅ Response completed successfully!")
+            
+            # Optional: Also display in a code block for better readability
+            with st.expander("📋 Response in formatted view"):
+                st.code(output_text, language=None)
             
     except Exception as e:
         st.error(f"❌ Error processing response: {str(e)}")
