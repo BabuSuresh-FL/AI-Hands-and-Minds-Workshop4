@@ -24,7 +24,7 @@
                   },
                   "amount": {
                     "type": "number",
-                    "description": "Transaction amount"
+                    "description": "Transaction amount (positive for credit, negative for debit)"
                   },
                   "transactionType": {
                     "type": "string",
